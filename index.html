@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,6 +48,7 @@
     --shadow:0 12px 32px -16px rgba(0,0,0,0.5);
     --shadow-lg:0 24px 60px -20px rgba(0,0,0,0.6);
   }
+  [data-theme="dark"] .icon-circle{color:var(--gold-text);}
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
@@ -141,17 +142,9 @@
   .float-chip.c2{bottom:22px; right:22px; z-index:2;}
   .float-chip .dot{width:7px;height:7px;border-radius:50%;background:#3FA66B;}
 
-  .hero-video-toggle{padding:5px; gap:4px;}
-  .hv-btn{
-    background:none; border:none; cursor:pointer; font-family:inherit;
-    font-size:12px; font-weight:700; color:var(--muted); padding:6px 12px; border-radius:7px;
-  }
-  .hv-btn.is-active{background:var(--btn-primary-bg); color:var(--btn-primary-ink);}
-
   .hero-video-frame{position:relative; width:100%; aspect-ratio:16/9; border-radius:12px; overflow:hidden; background:var(--tint-b);}
-  .hero-video{position:absolute; inset:0; display:none;}
-  .hero-video.is-active{display:block;}
-  .hero-video iframe{width:100%; height:100%; border:0; display:block;}
+  .hero-video{position:absolute; inset:0;}
+  .hero-video iframe,.hero-video video{width:100%; height:100%; border:0; display:block; object-fit:cover;}
 
   /* ---------- FEATURE / GRID CARDS ---------- */
   .section-head{max-width:640px; margin:0 auto 48px;}
@@ -174,8 +167,9 @@
   .card:hover{transform:translateY(-3px); box-shadow:var(--shadow);}
   .icon-circle{
     width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center;
-    margin-bottom:16px; font-size:20px;
+    margin-bottom:16px; color:var(--navy);
   }
+  .icon-circle svg{width:25px; height:25px; display:block; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round;}
   .card h3{font-size:16.5px; margin-bottom:8px;}
   .card p{color:var(--muted); font-size:14.5px;}
 
@@ -222,11 +216,38 @@
   .cta-band > *{position:relative;}
   .cta-band h2{color:#fff; font-size:clamp(26px,3.6vw,36px);}
   .cta-band p{color:#CBD9E8; margin-top:14px; max-width:52ch; margin-left:auto; margin-right:auto; font-size:16.5px;}
+  .contact-details{display:grid; gap:6px; margin:22px auto 0; color:#CBD9E8; font-size:15px;}
+  .contact-details strong{color:#fff;}
+  .contact-details a{text-decoration:underline; text-underline-offset:3px;}
+  .contact-details a:hover{color:#fff;}
   .cta-band .hero-ctas{justify-content:center; margin-top:28px;}
   .cta-band .btn-outline{background:transparent; border-color:rgba(255,255,255,0.4); color:#fff;}
   .cta-band .btn-outline:hover{background:rgba(255,255,255,0.12);}
   .cta-band .btn-primary{background:var(--gold); color:var(--navy-deep); box-shadow:none;}
   .cta-band .btn-primary:hover{background:var(--gold-deep);}
+
+  /* ---------- QUOTE JOURNEY ---------- */
+  .quote-section{background:var(--tint-c); border-top:1px solid var(--border); border-bottom:1px solid var(--border);}
+  .quote-layout{display:grid; grid-template-columns:.85fr 1.15fr; gap:48px; align-items:start;}
+  .quote-steps{display:grid; gap:22px;}
+  .quote-step{display:grid; grid-template-columns:42px 1fr; gap:14px; align-items:start;}
+  .quote-step-number{width:38px; height:38px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:var(--navy); color:#fff; font-weight:800; font-size:14px; box-shadow:0 8px 18px -10px rgba(14,44,74,.7);}
+  .quote-step h3{font-size:16px; margin:2px 0 5px;}
+  .quote-step p{font-size:14px; color:var(--muted); line-height:1.55;}
+  .quote-panel{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:30px; box-shadow:var(--shadow-lg);}
+  .quote-panel h3{font-size:21px; margin-bottom:6px;}
+  .quote-panel > p{font-size:14px; color:var(--muted); margin-bottom:22px;}
+  .quote-form{display:grid; gap:16px;}
+  .quote-form .field-row{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .quote-form label{display:grid; gap:6px; font-size:12.5px; font-weight:700; color:var(--ink);}
+  .quote-form input,.quote-form select,.quote-form textarea{width:100%; border:1px solid var(--border); border-radius:9px; background:var(--bg); color:var(--ink); padding:11px 12px; font:inherit; font-size:14px; outline:none; transition:border-color .15s, box-shadow .15s;}
+  .quote-form textarea{min-height:96px; resize:vertical;}
+  .quote-form input:focus,.quote-form select:focus,.quote-form textarea:focus{border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,152,47,.16);}
+  .quote-form .btn{justify-content:center; width:100%;}
+  .quote-note{font-size:12px; color:var(--muted); text-align:center;}
+  .quote-status{min-height:20px; color:var(--gold-text); font-size:13px; text-align:center;}
+  @media (max-width:820px){ .quote-layout{grid-template-columns:1fr; gap:32px;} }
+  @media (max-width:520px){ .quote-panel{padding:22px 18px;} .quote-form .field-row{grid-template-columns:1fr;} }
 
   /* ---------- FOOTER ---------- */
   footer{border-top:1px solid var(--border); padding:56px 0 30px;}
@@ -325,8 +346,7 @@
           <path d="M8 1.2V3M8 13v1.8M14.8 8H13M3 8H1.2M12.7 3.3l-1.3 1.3M4.6 11.4l-1.3 1.3M12.7 12.7l-1.3-1.3M4.6 4.6L3.3 3.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
         </svg>
       </button>
-      <a href="https://www.thrivemakeropc.net/contacts" class="btn btn-ghost">Contact</a>
-      <a href="https://www.thrivemakeropc.net/get-a-quote" class="btn btn-primary">Get a Quote</a>
+      <a href="#quote" class="btn btn-primary">Get a Quote</a>
     </div>
   </nav>
 </header>
@@ -336,12 +356,11 @@
   <section class="hero">
     <div class="wrap">
       <div>
-        <span class="eyebrow">North, Philippines · Software Studio</span>
-        <h1>Systems that run your clinic.<br><span class="accent">Grow your business.</span></h1>
-        <p class="lede">We build clinic management systems, workflow automation, and AI-assisted software so healthcare providers and growing businesses run leaner and scale without adding headcount.</p>
+        <h1>Smart Systems to Automate &amp; Scale Your Business</h1>
+        <p class="lede">We build AI-assisted clinic management systems and automated workflows&mdash;helping healthcare providers and businesses run leaner without adding headcount.</p>
         <div class="hero-ctas">
-          <a href="https://www.thrivemakeropc.net/get-a-quote" class="btn btn-primary">Get a Quote</a>
-          <a href="https://www.thrivemakeropc.net/contacts" class="btn btn-outline">Book an Appointment</a>
+          <a href="#quote" class="btn btn-primary">Get a Quote</a>
+          <a href="#contact" class="btn btn-outline">Book an Appointment</a>
           <a href="#products" class="btn btn-ghost">See Products</a>
         </div>
         <div class="engineered-strip">
@@ -351,17 +370,9 @@
       </div>
 
       <div class="hero-visual">
-        <span class="float-chip c1"><span class="dot"></span> Live sync</span>
-        <span class="float-chip c2 hero-video-toggle">
-          <button type="button" class="hv-btn is-active" data-video="hv-software">Software</button>
-          <button type="button" class="hv-btn" data-video="hv-hardware">Hardware</button>
-        </span>
         <div class="hero-video-frame">
-          <div class="hero-video is-active" id="hv-software">
-            <iframe data-src="https://www.youtube.com/embed/Re-wr6RvH0Q?autoplay=1&amp;mute=1&amp;playsinline=1&amp;rel=0" src="https://www.youtube.com/embed/Re-wr6RvH0Q?autoplay=1&amp;mute=1&amp;playsinline=1&amp;rel=0" title="Thrive Maker software walkthrough" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-          </div>
-          <div class="hero-video" id="hv-hardware">
-            <iframe data-src="https://www.youtube.com/embed/MR_q_7V3h5Q?autoplay=1&amp;mute=1&amp;playsinline=1&amp;rel=0" title="Thrive Maker hardware walkthrough" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <div class="hero-video">
+            <video data-src="ads.mp4" src="ads.mp4" title="Thrive Maker software walkthrough" autoplay muted loop playsinline></video>
           </div>
         </div>
       </div>
@@ -372,27 +383,27 @@
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow" style="display:block; text-align:center;">Features</span>
-        <h2 style="text-align:center;">Powerful Solutions Included</h2>
-        <p style="text-align:center;">From patient portals to predictive automations, every build starts with the same question: what should a person never have to do by hand again?</p>
+        <h2 style="text-align:center;">Less busywork. More room to grow.</h2>
+        <p style="text-align:center;">From patient portals to practical automations, every build starts with one question: what should your team never have to do by hand again?</p>
       </div>
       <div class="grid grid-4">
         <div class="card">
-          <div class="icon-circle" style="background:var(--tint-b);">🖥️</div>
+          <div class="icon-circle" style="background:var(--tint-b);"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"></rect><path d="M8 20h8M12 17v3M6 8h12"></path></svg></div>
           <h3>Custom Web Applications</h3>
           <p>Patient portals and clinic management systems built around how your team actually works.</p>
         </div>
         <div class="card">
-          <div class="icon-circle" style="background:var(--tint-a);">⚙️</div>
+          <div class="icon-circle workflow" style="background:var(--tint-a);"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"></circle><circle cx="12" cy="12" r="2"></circle><path d="M12 3v2M12 19v2M3 12h2M19 12h2"></path></svg></div>
           <h3>Workflow Automation</h3>
           <p>Reminders, billing, and documentation handled automatically — so staff can focus on patients.</p>
         </div>
         <div class="card">
-          <div class="icon-circle" style="background:var(--tint-c);">🤖</div>
-          <h3>AI-Powered Coding</h3>
-          <p>AI-accelerated development means faster builds and smarter features, sooner.</p>
+          <div class="icon-circle ai" style="background:var(--tint-c);"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="6" width="16" height="13" rx="4"></rect><circle cx="9" cy="12" r="1"></circle><circle cx="15" cy="12" r="1"></circle><path d="M9 16h6M12 6V3"></path></svg></div>
+          <h3>AI-Assisted Development</h3>
+          <p>We use AI where it helps us build faster, test carefully, and deliver smarter features sooner.</p>
         </div>
         <div class="card">
-          <div class="icon-circle" style="background:var(--tint-b);">🚀</div>
+          <div class="icon-circle deploy" style="background:var(--tint-b);"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V5M7 10l5-5 5 5"></path><path d="M5 20h14"></path><circle cx="12" cy="5" r="2"></circle></svg></div>
           <h3>Ready-to-Deploy Systems</h3>
           <p>A proven suite of products you can implement immediately — no long build cycle.</p>
         </div>
@@ -481,7 +492,7 @@
       </div>
 
       <div style="text-align:center; margin-top:32px;">
-        <a href="https://www.thrivemakeropc.net/get-a-quote" class="btn btn-primary">Get a Quote on Any Product</a>
+        <a href="#quote" class="btn btn-primary">Get a Quote on Any Product</a>
       </div>
     </div>
   </section>
@@ -495,32 +506,32 @@
       </div>
       <div class="grid grid-3">
         <div class="card">
-          <div class="icon-circle" style="background:var(--tint-b);">🌐</div>
+          <div class="icon-circle web" style="background:var(--tint-b);"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"></path></svg></div>
           <h3>Website Design &amp; Development</h3>
           <p>A responsive, SEO-ready website with a free basic logo, mobile compatibility, and SSL included.</p>
         </div>
         <div class="card">
-          <div class="icon-circle" style="background:var(--tint-a);">🛠️</div>
+          <div class="icon-circle tools" style="background:var(--tint-a);"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 16.5 7.5"></path><path d="m14 5 1.5-1.5 5 5L19 10"></path><circle cx="5" cy="19" r="2"></circle></svg></div>
           <h3>Web Maintenance</h3>
           <p>Ongoing updates, security patches, backups, and speed checks so your site stays fast and safe.</p>
         </div>
         <div class="card">
-          <div class="icon-circle" style="background:var(--tint-c);">📊</div>
+          <div class="icon-circle chart" style="background:var(--tint-c);"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5M4 19h16"></path><path d="m7 15 4-4 3 2 5-6"></path><circle cx="7" cy="15" r="1"></circle><circle cx="19" cy="7" r="1"></circle></svg></div>
           <h3>Infographic Creation</h3>
           <p>Data and ideas turned into clear, shareable visuals for reports, social media, and presentations.</p>
         </div>
         <div class="card">
-          <div class="icon-circle" style="background:var(--tint-b);">🔁</div>
+          <div class="icon-circle flow" style="background:var(--tint-b);"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h9a4 4 0 0 1 4 4v6"></path><path d="m15 14 3 3 3-3"></path><path d="M19 17H10a4 4 0 0 1-4-4V7"></path><path d="m9 10-3-3-3 3"></path></svg></div>
           <h3>Automate Workflow</h3>
           <p>Repetitive tasks streamlined with tools like Zapier, Google Workspace, and custom AI bots.</p>
         </div>
         <div class="card">
-          <div class="icon-circle" style="background:var(--tint-a);">✨</div>
-          <h3>AI Vibes Coding</h3>
-          <p>Business apps built with modern AI-assisted development — chatbots, predictive analysis, and more.</p>
+          <div class="icon-circle ai" style="background:var(--tint-a);"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 1.5 5.5L19 10l-5.5 1.5L12 17l-1.5-5.5L5 10l5.5-1.5L12 3Z"></path><path d="m19 16 .7 2.3L22 19l-2.3.7L19 22l-.7-2.3L16 19l2.3-.7L19 16Z"></path></svg></div>
+          <h3>AI-Assisted Product Development</h3>
+          <p>Useful business apps built with modern tools — from chatbots and predictive analysis to focused internal systems.</p>
         </div>
         <div class="card">
-          <div class="icon-circle" style="background:var(--tint-c);">💡</div>
+          <div class="icon-circle" style="background:var(--tint-c);"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="m12 8 1.3 2.7L16 12l-2.7 1.3L12 16l-1.3-2.7L8 12l2.7-1.3L12 8Z"></path></svg></div>
           <h3>IT Consultancy</h3>
           <p>Straight advice on your tech stack, digital strategy, and which software actually fits your business.</p>
         </div>
@@ -545,14 +556,87 @@
     </div>
   </section>
 
+  <section id="quote" class="quote-section">
+    <div class="wrap">
+      <div class="section-head left">
+        <span class="eyebrow">How to get a quote</span>
+        <h2>Start with the problem. We will help shape the solution.</h2>
+        <p>You do not need a perfect brief or a technical vocabulary. Tell us what is slowing the business down and we will come back with a practical next step.</p>
+      </div>
+      <div class="quote-layout">
+        <div class="quote-steps">
+          <div class="quote-step">
+            <span class="quote-step-number">01</span>
+            <div><h3>Share the bottleneck</h3><p>Give us the short version: what takes too long, gets missed, or keeps your team doing repetitive work?</p></div>
+          </div>
+          <div class="quote-step">
+            <span class="quote-step-number">02</span>
+            <div><h3>We map the right scope</h3><p>We review your context, recommend the simplest useful starting point, and identify what can wait.</p></div>
+          </div>
+          <div class="quote-step">
+            <span class="quote-step-number">03</span>
+            <div><h3>Get a clear next step</h3><p>You receive a conversation, scope, and pricing direction you can actually use to decide.</p></div>
+          </div>
+        </div>
+        <div class="quote-panel">
+          <h3>Tell us what you are planning</h3>
+          <p>This opens a prepared email to our Sales team. No account or lengthy sign-up required.</p>
+          <form class="quote-form" id="quote-form">
+            <div class="field-row">
+              <label>What do you need?
+                <select name="project" required>
+                  <option value="" selected disabled>Select a starting point</option>
+                  <option>Clinic management system</option>
+                  <option>Workflow automation</option>
+                  <option>Website or web application</option>
+                  <option>Gym or school system</option>
+                  <option>Security or IoT hardware</option>
+                  <option>Not sure yet</option>
+                </select>
+              </label>
+              <label>When are you looking to start?
+                <select name="timeline" required>
+                  <option value="" selected disabled>Choose a timeline</option>
+                  <option>As soon as possible</option>
+                  <option>Within 1-3 months</option>
+                  <option>Within 3-6 months</option>
+                  <option>Just exploring</option>
+                </select>
+              </label>
+            </div>
+            <div class="field-row">
+              <label>Your name
+                <input type="text" name="name" autocomplete="name" required>
+              </label>
+              <label>Email or phone
+                <input type="text" name="contact" autocomplete="email" required>
+              </label>
+            </div>
+            <label>What would you like to improve?
+              <textarea name="brief" placeholder="For example: We need to reduce manual appointment and billing work."></textarea>
+            </label>
+            <button type="submit" class="btn btn-primary">Prepare My Quote Request</button>
+            <p class="quote-note">We will use your details only to respond to this request.</p>
+            <p class="quote-status" id="quote-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="contact">
     <div class="wrap">
       <div class="cta-band">
         <h2>Ready to modernize your practice?</h2>
         <p>Tell us where the bottleneck is — scheduling, billing, records, or all three — and we'll show you what a fix looks like.</p>
+        <div class="contact-details">
+          <strong>Call or Email to book an appointment</strong>
+          <span>Call or Text: <a href="tel:+639224239570">+63 922 4239570</a> or <a href="tel:+639158801862">+63 915 8801862</a></span>
+          <span>Email: <a href="mailto:sales@thrivemakeropc.net">sales@thrivemakeropc.net</a> | <a href="mailto:support@thrivemakeropc.net">support@thrivemakeropc.net</a></span>
+        </div>
         <div class="hero-ctas">
-          <a href="https://www.thrivemakeropc.net/get-a-quote" class="btn btn-primary">Get a Quote</a>
-          <a href="https://www.thrivemakeropc.net/contacts" class="btn btn-outline">Book an Appointment</a>
+          <a href="#quote" class="btn btn-primary">Get a Quote</a>
+          <a href="#contact" class="btn btn-outline">Book an Appointment</a>
         </div>
       </div>
     </div>
@@ -584,8 +668,8 @@
         <ul>
           <li><a href="#services">Services</a></li>
           <li><a href="#why">Why Us</a></li>
-          <li><a href="https://www.thrivemakeropc.net/get-a-quote">Get a Quote</a></li>
-          <li><a href="https://www.thrivemakeropc.net/contacts">Contacts</a></li>
+          <li><a href="#quote">Get a Quote</a></li>
+          <li><a href="#contact">Contacts</a></li>
         </ul>
       </div>
     </div>
@@ -613,27 +697,6 @@
 
 
 <script>
-  // Hero video switch (Software demo / Hardware demo)
-  document.querySelectorAll('.hv-btn').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      document.querySelectorAll('.hv-btn').forEach(function(b){ b.classList.remove('is-active'); });
-      document.querySelectorAll('.hero-video').forEach(function(v){
-        var f = v.querySelector('iframe');
-        if (v.classList.contains('is-active')){
-          f.removeAttribute('src'); // stop playback on the outgoing video
-        }
-        v.classList.remove('is-active');
-      });
-      btn.classList.add('is-active');
-      var target = document.getElementById(btn.dataset.video);
-      target.classList.add('is-active');
-      var targetFrame = target.querySelector('iframe');
-      if (!targetFrame.getAttribute('src')){
-        targetFrame.setAttribute('src', targetFrame.getAttribute('data-src'));
-      }
-    });
-  });
-
   // Product category tabs (Software / Hardware)
   document.querySelectorAll('.prod-switch-btn').forEach(function(btn){
     btn.addEventListener('click', function(){
@@ -675,6 +738,32 @@
     io.observe(whySection);
   } else {
     runCountUp();
+  }
+</script>
+<script>
+  var quoteForm = document.getElementById('quote-form');
+  var quoteStatus = document.getElementById('quote-status');
+  if (quoteForm && quoteStatus){
+    quoteForm.addEventListener('submit', function(event){
+      event.preventDefault();
+      var data = new FormData(quoteForm);
+      var subject = 'Quote request: ' + data.get('project');
+      var body = [
+        'Hello Thrive Maker Sales,',
+        '',
+        'I would like to explore a quote.',
+        '',
+        'Name: ' + data.get('name'),
+        'Email or phone: ' + data.get('contact'),
+        'Project: ' + data.get('project'),
+        'Timeline: ' + data.get('timeline'),
+        'What I would like to improve: ' + (data.get('brief') || 'Not provided'),
+        '',
+        'Thank you.'
+      ].join('\n');
+      quoteStatus.textContent = 'Opening your email app with the request prepared...';
+      window.location.href = 'mailto:sales@thrivemakeropc.net?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    });
   }
 </script>
 </body>
