@@ -137,9 +137,21 @@
     border-radius:10px; padding:8px 12px; font-size:12px; font-weight:600;
     box-shadow:var(--shadow); display:flex; align-items:center; gap:6px;
   }
-  .float-chip.c1{top:18px; left:18px;}
-  .float-chip.c2{bottom:22px; right:22px;}
+  .float-chip.c1{top:18px; left:18px; z-index:2;}
+  .float-chip.c2{bottom:22px; right:22px; z-index:2;}
   .float-chip .dot{width:7px;height:7px;border-radius:50%;background:#3FA66B;}
+
+  .hero-video-toggle{padding:5px; gap:4px;}
+  .hv-btn{
+    background:none; border:none; cursor:pointer; font-family:inherit;
+    font-size:12px; font-weight:700; color:var(--muted); padding:6px 12px; border-radius:7px;
+  }
+  .hv-btn.is-active{background:var(--btn-primary-bg); color:var(--btn-primary-ink);}
+
+  .hero-video-frame{position:relative; width:100%; aspect-ratio:16/9; border-radius:12px; overflow:hidden; background:var(--tint-b);}
+  .hero-video{position:absolute; inset:0; display:none;}
+  .hero-video.is-active{display:block;}
+  .hero-video iframe{width:100%; height:100%; border:0; display:block;}
 
   /* ---------- FEATURE / GRID CARDS ---------- */
   .section-head{max-width:640px; margin:0 auto 48px;}
@@ -233,6 +245,59 @@
     max-width:var(--maxw); margin:40px auto 0; padding:20px 32px 0; border-top:1px solid var(--border);
     display:flex; justify-content:space-between; font-size:13px; color:var(--muted); flex-wrap:wrap; gap:10px;
   }
+
+  /* ---------- ENGINEERED STRIP ---------- */
+  .engineered-strip{
+    margin-top:26px; display:flex; align-items:flex-start; gap:10px;
+    font-size:13.5px; color:var(--muted); max-width:46ch;
+    padding-top:18px; border-top:1px solid var(--border);
+  }
+  .engineered-strip b{color:var(--ink);}
+  .eng-icon{color:var(--gold-text); font-weight:700; flex-shrink:0;}
+
+  /* ---------- PRODUCT SWITCH (tabs) ---------- */
+  .prod-switch{
+    display:inline-flex; gap:4px; margin-bottom:40px; padding:6px;
+    background:var(--tint-b); border:1px solid var(--border); border-radius:100px;
+  }
+  .prod-switch-btn{
+    background:none; border:none; cursor:pointer; font-family:inherit;
+    font-size:15.5px; font-weight:700; color:var(--muted); padding:12px 28px;
+    border-radius:100px; transition:color .15s ease, background .15s ease, box-shadow .15s ease;
+  }
+  .prod-switch-btn.is-active{color:var(--btn-primary-ink); background:var(--btn-primary-bg); box-shadow:0 8px 18px -8px rgba(14,44,74,0.45);}
+  .prod-switch-btn:not(.is-active):hover{color:var(--ink); background:var(--surface);}
+  @media (max-width:520px){
+    .prod-switch{display:flex; width:100%;}
+    .prod-switch-btn{flex:1; padding:12px 10px;}
+  }
+
+  .prod-panel{display:none;}
+  .prod-panel.is-active{display:block; animation:panelIn .35s ease;}
+  @keyframes panelIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+  .price-row{
+    margin-top:18px; padding-top:16px; border-top:1px solid var(--border);
+    font-size:13px; color:var(--gold-text); font-weight:600;
+  }
+  .price-row a{color:inherit; border-bottom:1px solid currentColor;}
+  .product-card.is-soon{opacity:0.72; border-style:dashed;}
+
+  .hw-intro{
+    background:var(--tint-a); border:1px solid var(--border); border-radius:var(--radius-md);
+    padding:16px 20px; margin-bottom:24px; font-size:14.5px; color:var(--ink); max-width:70ch;
+  }
+  .hw-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px;}
+  @media (max-width:960px){ .hw-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:520px){ .hw-grid{grid-template-columns:1fr;} }
+  .hw-item{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-md);
+    padding:18px 18px; transition:border-color .15s ease, transform .15s ease;
+  }
+  .hw-item:hover{border-color:var(--gold); transform:translateY(-2px);}
+  .hw-item h4{font-size:14px; font-weight:700; margin-bottom:6px;}
+  .hw-item p{font-size:13px; color:var(--muted); line-height:1.5;}
+  .hw-footnote{margin-top:22px; font-size:13.5px; color:var(--muted); text-align:center;}
 </style>
 </head>
 <body>
@@ -277,27 +342,28 @@
         <div class="hero-ctas">
           <a href="https://www.thrivemakeropc.net/get-a-quote" class="btn btn-primary">Get a Quote</a>
           <a href="https://www.thrivemakeropc.net/contacts" class="btn btn-outline">Book an Appointment</a>
-          <a href="#services" class="btn btn-ghost">See Services</a>
+          <a href="#products" class="btn btn-ghost">See Products</a>
+        </div>
+        <div class="engineered-strip">
+          <span class="eng-icon">⌗</span>
+          <span>Engineered by a team of software engineers and automation specialists with <b>20+ years</b> of combined, hands-on experience.</span>
         </div>
       </div>
 
       <div class="hero-visual">
         <span class="float-chip c1"><span class="dot"></span> Live sync</span>
-        <span class="float-chip c2">↓ 50% admin time</span>
-        <svg viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg">
-          <rect x="20" y="20" width="380" height="280" rx="16" fill="var(--tint-b)"/>
-          <!-- shield -->
-          <path d="M210 46 L300 70 V150 C300 210 262 246 210 268 C158 246 120 210 120 150 V70 Z"
-            fill="none" stroke="var(--navy)" stroke-width="4" stroke-linejoin="round"/>
-          <!-- crown ticks -->
-          <path d="M188 46 L198 30 L210 42 L222 30 L232 46" fill="none" stroke="var(--gold)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-          <!-- ascending chart inside shield -->
-          <polyline points="145,190 175,160 200,175 225,120 250,140 275,100" fill="none" stroke="var(--gold)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="275" cy="100" r="6" fill="var(--gold)"/>
-          <!-- base cards -->
-          <rect x="46" y="252" width="90" height="14" rx="7" fill="var(--surface)"/>
-          <rect x="284" y="252" width="90" height="14" rx="7" fill="var(--surface)"/>
-        </svg>
+        <span class="float-chip c2 hero-video-toggle">
+          <button type="button" class="hv-btn is-active" data-video="hv-software">Software</button>
+          <button type="button" class="hv-btn" data-video="hv-hardware">Hardware</button>
+        </span>
+        <div class="hero-video-frame">
+          <div class="hero-video is-active" id="hv-software">
+            <iframe data-src="https://www.youtube.com/embed/Re-wr6RvH0Q?autoplay=1&amp;mute=1&amp;playsinline=1&amp;rel=0" src="https://www.youtube.com/embed/Re-wr6RvH0Q?autoplay=1&amp;mute=1&amp;playsinline=1&amp;rel=0" title="Thrive Maker software walkthrough" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <div class="hero-video" id="hv-hardware">
+            <iframe data-src="https://www.youtube.com/embed/MR_q_7V3h5Q?autoplay=1&amp;mute=1&amp;playsinline=1&amp;rel=0" title="Thrive Maker hardware walkthrough" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -338,58 +404,84 @@
     <div class="wrap">
       <div class="section-head left">
         <span class="eyebrow">Products</span>
-        <h2>Software already running clinics, gyms, and schools like yours.</h2>
-        <p>Built in-house, refined through real-world use, and ready to deploy without a custom build from zero.</p>
+        <h2>Two catalogs, one team: the code that runs the front desk, and the gear that watches the front gate.</h2>
+        <p>Everything below is built in-house, already running in real clinics, gyms, schools, and communities, and ready to deploy without a custom build from zero.</p>
       </div>
-      <div class="grid grid-3">
-        <div class="product-card">
-          <span class="tag">Clinic / EMR Management</span>
-          <h3>ThriveMedX</h3>
-          <p>Smarter care, stronger practice — patient records, scheduling, billing, and an AI assistant in one platform.</p>
-          <ul>
-            <li>AI Assistant &amp; doctor dashboard</li>
-            <li>Growth charts &amp; immunization tracking</li>
-            <li>Custom template forms, billing &amp; invoicing</li>
-            <li>Plans from ₱1,500/month</li>
-          </ul>
-        </div>
-        <div class="product-card">
-          <span class="tag">Gym Membership System</span>
-          <h3>ThriveMaker Gym</h3>
-          <p>Stronger members, smarter gym, better business — everything from check-in to reports in one system.</p>
-          <ul>
-            <li>Member management &amp; class scheduling</li>
-            <li>QR check-in &amp; attendance tracking</li>
-            <li>Payments, billing &amp; real-time analytics</li>
-            <li>Secure, cloud-backed &amp; reliable</li>
-          </ul>
-        </div>
-        <div class="product-card">
-          <span class="tag">Smart School Solutions</span>
-          <h3>Student Attendance Checker</h3>
-          <p>Modern, smart, secure attendance — built to keep every student safe and every parent informed.</p>
-          <ul>
-            <li>Facial recognition &amp; NFC card check-in</li>
-            <li>Real-time parent notifications &amp; alerts</li>
-            <li>Secure pick-up system &amp; emergency alerts</li>
-            <li>Kiosk or desktop setup from ₱120,000</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <section id="hardware" style="padding-top:0;">
-    <div class="wrap">
-      <div class="cta-band" style="background:linear-gradient(135deg,var(--navy-deep),#0A1D33); text-align:left; padding:48px 40px;">
-        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:30px; flex-wrap:wrap;">
-          <div style="max-width:60ch;">
-            <span class="eyebrow" style="color:var(--gold);">Now Available · From Software to Solutions</span>
-            <h2 style="font-size:clamp(22px,2.8vw,30px);">Something good is here: hardware solutions for the North.</h2>
-            <p style="margin-top:12px; margin-left:0;">CCTV surveillance, biometrics &amp; access control, alarm systems, disaster-response tools, and solar power &amp; backup systems — built to keep your home, business, and community safe.</p>
+      <span class="eyebrow" style="margin-bottom:10px;">Browse by category</span>
+      <div class="prod-switch" role="tablist" aria-label="Product category">
+        <button class="prod-switch-btn is-active" data-panel="panel-software" role="tab" aria-selected="true">Software</button>
+        <button class="prod-switch-btn" data-panel="panel-hardware" role="tab" aria-selected="false">Hardware</button>
+      </div>
+
+      <div class="prod-panel is-active" id="panel-software" role="tabpanel">
+        <div class="grid grid-3">
+          <div class="product-card">
+            <span class="tag">Clinic / EMR Management</span>
+            <h3>ThriveMedX</h3>
+            <p>Smarter care, stronger practice — patient records, scheduling, billing, and an AI assistant in one platform, with a portal patients can log into themselves.</p>
+            <ul>
+              <li>AI assistant, doctor dashboard &amp; growth charts</li>
+              <li>Immunization tracking &amp; custom template forms</li>
+              <li>Medicine &amp; supplies inventory, billing &amp; invoicing</li>
+              <li>Add-on modules for lab, dialysis &amp; rehab clinics</li>
+            </ul>
+            <div class="price-row">Grow Starter ₱1,500/mo · Grow Plus ₱1,800/mo · Grow Pro ₱2,000/mo</div>
           </div>
-          <a href="https://www.thrivemakeropc.net/contacts" class="btn btn-primary" style="flex-shrink:0;">Get a Quote</a>
+          <div class="product-card">
+            <span class="tag">Gym Membership System</span>
+            <h3>ThriveMaker Gym</h3>
+            <p>Stronger members, smarter gym, better business — everything from check-in to reports in one system.</p>
+            <ul>
+              <li>Member management &amp; class scheduling</li>
+              <li>QR check-in, contactless &amp; instant</li>
+              <li>Payments, billing &amp; real-time analytics dashboard</li>
+              <li>Cloud-backed, privacy-protected &amp; reliable</li>
+            </ul>
+            <div class="price-row">Priced per gym — ask for a plan built around your member count</div>
+          </div>
+          <div class="product-card">
+            <span class="tag">Smart School Solutions</span>
+            <h3>Student Attendance Checker</h3>
+            <p>Modern, smart, secure attendance — built to keep every student safe and every parent informed in real time.</p>
+            <ul>
+              <li>Facial recognition &amp; NFC card check-in</li>
+              <li>Parent notifications via Telegram &amp; SMS</li>
+              <li>Secure pick-up system &amp; emergency alerts</li>
+              <li>Class &amp; schedule management, real-time reports</li>
+            </ul>
+            <div class="price-row">Kiosk setup ₱140,000 · Desktop setup ₱120,000 · from ₱300/student/yr</div>
+          </div>
         </div>
+      </div>
+
+      <div class="prod-panel" id="panel-hardware">
+        <div class="hw-intro">
+          <p>Official distributor of <b>GoodHands</b> security and IoT hardware — reliable technology, smart solutions, and expert installation for homes, businesses, and communities.</p>
+        </div>
+        <div class="hw-grid">
+          <div class="hw-item"><h4>CCTV Surveillance</h4><p>HD cameras for 24/7 monitoring and peace of mind.</p></div>
+          <div class="hw-item"><h4>Magnetic Door Lock</h4><p>Secure locking for doors and access points.</p></div>
+          <div class="hw-item"><h4>Electric Fence</h4><p>Perimeter protection that deters intruders.</p></div>
+          <div class="hw-item"><h4>Digital Door Lock</h4><p>Keyless convenience with advanced security features.</p></div>
+          <div class="hw-item"><h4>Biometrics Access Control</h4><p>Fingerprint &amp; face recognition for secure access.</p></div>
+          <div class="hw-item"><h4>GPS Vehicle Tracker</h4><p>Real-time tracking for vehicle security &amp; fleet management.</p></div>
+          <div class="hw-item"><h4>Body-Worn Camera</h4><p>Real-time evidence for accountability &amp; transparency.</p></div>
+          <div class="hw-item"><h4>Dashboard Camera</h4><p>Record your journey and stay protected on the road.</p></div>
+          <div class="hw-item"><h4>Two-Way Radio</h4><p>Reliable team communication, anytime, anywhere.</p></div>
+          <div class="hw-item"><h4>Wireless Access Point</h4><p>Seamless, secure wireless connectivity.</p></div>
+          <div class="hw-item"><h4>Metal Detector</h4><p>Accurate detection for enhanced security screening.</p></div>
+          <div class="hw-item"><h4>Intruder Alarm System</h4><p>Instant alerts and protection against break-ins.</p></div>
+          <div class="hw-item"><h4>Video Door Intercom</h4><p>See, hear &amp; speak to visitors before granting access.</p></div>
+          <div class="hw-item"><h4>Public Address System</h4><p>Clear communication for announcements &amp; emergencies.</p></div>
+          <div class="hw-item"><h4>Solar Streetlight</h4><p>Energy-efficient lighting for streets, parks &amp; communities.</p></div>
+          <div class="hw-item"><h4>Rescue Rubber Boat</h4><p>Durable, dependable gear for emergency &amp; rescue operations.</p></div>
+        </div>
+        <div class="hw-footnote">Every install includes expert setup, quality-checked products, after-sales support, and nationwide service.</div>
+      </div>
+
+      <div style="text-align:center; margin-top:32px;">
+        <a href="https://www.thrivemakeropc.net/get-a-quote" class="btn btn-primary">Get a Quote on Any Product</a>
       </div>
     </div>
   </section>
@@ -441,14 +533,15 @@
       <div class="section-head left">
         <span class="eyebrow">Why Thrive Maker</span>
         <h2>Two decades of practice, a young company on paper.</h2>
+        <p>Thrive Maker OPC is built and run by a small group of software engineers, testers, and automation specialists who bring more than 20 years of combined, hands-on experience to every clinic, gym, school, and property we deploy to.</p>
       </div>
       <div class="why-grid">
-        <div class="stat-card"><div class="n">20+ yrs</div><div class="t">Combined software &amp; automation experience</div></div>
-        <div class="stat-card"><div class="n">50%</div><div class="t">Typical reduction in admin overhead for clinic clients</div></div>
-        <div class="stat-card"><div class="n">6</div><div class="t">SaaS products shipped under the Thrive brand</div></div>
-        <div class="stat-card"><div class="n">1</div><div class="t">Point of contact from quote through ongoing support</div></div>
+        <div class="stat-card"><div class="n" data-count="20" data-suffix="+ yrs">0</div><div class="t">Combined software &amp; automation engineering experience</div></div>
+        <div class="stat-card"><div class="n" data-count="50" data-suffix="%">0</div><div class="t">Typical reduction in admin overhead for clinic clients</div></div>
+        <div class="stat-card"><div class="n" data-count="6">0</div><div class="t">SaaS products shipped under the Thrive brand</div></div>
+        <div class="stat-card"><div class="n" data-count="1">0</div><div class="t">Point of contact from quote through ongoing support</div></div>
       </div>
-      <div class="honesty"><b>Newly registered with the SEC</b> — but our team brings over two decades of hands-on experience in software development and automation. We're new as a company, not new at this work.</div>
+      <div class="honesty"><b>Newly registered with the SEC</b> — but our engineers bring over two decades of hands-on experience in software development, QA automation, and systems integration. We're new as a company, not new at this work.</div>
     </div>
   </section>
 
@@ -483,7 +576,7 @@
           <li><a href="https://thrivemedx.thrivemakeropc.net/">ThriveMedX</a></li>
           <li><a href="#products">ThriveMaker Gym</a></li>
           <li><a href="#products">Student Attendance Checker</a></li>
-          <li><a href="https://www.thrivemakeropc.net/products/thrivepedia">ThrivePedia</a></li>
+          <li><a href="https://www.thrivemakeropc.net/products/thrivepedia"></a></li>
         </ul>
       </div>
       <div>
@@ -498,7 +591,7 @@
     </div>
   </div>
   <div class="foot-bottom">
-    <span>© 2026 Thrive Maker OPC. All rights reserved.</span>
+    <span>© 2025 Thrive Maker OPC. All rights reserved.</span>
     <span>North, Philippines</span>
   </div>
 </footer>
@@ -518,5 +611,71 @@
   updateThemeIcon();
 </script>
 
+
+<script>
+  // Hero video switch (Software demo / Hardware demo)
+  document.querySelectorAll('.hv-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.hv-btn').forEach(function(b){ b.classList.remove('is-active'); });
+      document.querySelectorAll('.hero-video').forEach(function(v){
+        var f = v.querySelector('iframe');
+        if (v.classList.contains('is-active')){
+          f.removeAttribute('src'); // stop playback on the outgoing video
+        }
+        v.classList.remove('is-active');
+      });
+      btn.classList.add('is-active');
+      var target = document.getElementById(btn.dataset.video);
+      target.classList.add('is-active');
+      var targetFrame = target.querySelector('iframe');
+      if (!targetFrame.getAttribute('src')){
+        targetFrame.setAttribute('src', targetFrame.getAttribute('data-src'));
+      }
+    });
+  });
+
+  // Product category tabs (Software / Hardware)
+  document.querySelectorAll('.prod-switch-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.prod-switch-btn').forEach(function(b){
+        b.classList.remove('is-active'); b.setAttribute('aria-selected','false');
+      });
+      document.querySelectorAll('.prod-panel').forEach(function(p){ p.classList.remove('is-active'); });
+      btn.classList.add('is-active'); btn.setAttribute('aria-selected','true');
+      document.getElementById(btn.dataset.panel).classList.add('is-active');
+    });
+  });
+
+  // Count-up animation for the "Why" stats, triggered once on scroll into view
+  var counted = false;
+  function runCountUp(){
+    if (counted) return;
+    var stats = document.querySelectorAll('.stat-card .n[data-count]');
+    if (!stats.length) return;
+    counted = true;
+    stats.forEach(function(el){
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      var suffix = el.getAttribute('data-suffix') || '';
+      var start = null, duration = 900;
+      function step(ts){
+        if (!start) start = ts;
+        var progress = Math.min((ts - start) / duration, 1);
+        var value = Math.round(progress * target);
+        el.textContent = value + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+  var whySection = document.getElementById('why');
+  if (whySection && 'IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){ if (entry.isIntersecting) runCountUp(); });
+    }, {threshold:0.4});
+    io.observe(whySection);
+  } else {
+    runCountUp();
+  }
+</script>
 </body>
 </html>
